@@ -14,7 +14,7 @@ U_53() {
     
     bash_users=$(cat /etc/passwd | grep bash | awk -F : '{print $1}')
     Vulnerable_users=""
-    for user in "${bash_users[@]}"; do
+    for user in $bash_users; do
         user_home=$(grep "^$user:" /etc/passwd | awk -F : '{print $6}')
         if [ -f "$user_home/.bash_history" ]; then
             continue
