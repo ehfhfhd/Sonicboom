@@ -4,7 +4,6 @@ U_03() {
 
     system_auth_file="/etc/pam.d/system-auth"
 
-    # 파일 존재 여부 확인
     if [ ! -f "$system_auth_file" ]; then
         echo -en "[취약]\t" >>  $rf 2>&1
         echo -en "시스템에 /etc/pam.d/system-auth 파일이 존재하지 않는 상태입니다.\t"  >>  $rf 2>&1
