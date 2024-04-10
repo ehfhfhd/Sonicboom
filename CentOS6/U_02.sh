@@ -20,19 +20,19 @@ U_02() {
 
             lcredit_value=$(echo "$pam_password" | awk -F'lcredit=' '{print $2}' | awk '{gsub("-", ""); print $1}')
             if [ -z "$lcredit_value" ]; then
-              o_lcredit_value="-"  # 값이 없는 경우 '-' 할당
+              o_lcredit_value="-"
             fi
             ucredit_value=$(echo "$pam_password" | awk -F'ucredit=' '{print $2}' | awk '{gsub("-", ""); print $1}')
             if [ -z "$ucredit_value" ]; then
-              o_ucredit_value="-"  # 값이 없는 경우 '-' 할당
+              o_ucredit_value="-"
             fi
             dcredit_value=$(echo "$pam_password" | awk -F'dcredit=' '{print $2}' | awk '{gsub("-", ""); print $1}')
             if [ -z "$dcredit_value" ]; then
-              o_dcredit_value="-"  # 값이 없는 경우 '-' 할당
+              o_dcredit_value="-"
             fi
             ocredit_value=$(echo "$pam_password" | awk -F'ocredit=' '{print $2}' | awk '{gsub("-", ""); print $1}')
             if [ -z "$ocredit_value" ]; then
-              o_credit_value="-"  # 값이 없는 경우 '-' 할당
+              o_credit_value="-"
             fi
 
             if [ -z "$minlen_value" ]; then
