@@ -6,7 +6,7 @@ U_53() {
     unknown_vulnerability=False
 
     if [ -n /etc/passwd ]; then
-        vulnerable_users=$(grep -E "^(daemon|bin:|sys|adm|listen|nobody|nobody4|noaccess|diag|operator|gopher|games|lp|uucp|nuucp):" /etc/passwd | awk -F : '$7!="/bin/false" && $7!="/sbin/nologin" {print $1}')
+        vuln_users=$(grep -E "^(daemon|bin:|sys|adm|listen|nobody|nobody4|noaccess|diag|operator|gopher|games|lp|uucp|nuucp):" /etc/passwd | awk -F : '$7!="/bin/false" && $7!="/sbin/nologin" {print $1}')
         if [ -n "$vuln_users" ]; then
             unknown_vulnerability=True
         fi
@@ -38,12 +38,19 @@ U_53() {
         
     elif [ "$bash_vulnerability" == "False" ] && [ "$unknown_vulnerability" == "True" ]; then
         echo -en "[취약]\t" >> $rf 2>&1
-        echo -en "로그인이 불필요한 계정($vuln_users)에 /bin/false, /sbin/nologin 쉘이 부여되지 않은 상태입니다.\t" >> $rf 2>&1
+        echo -n "로그인이 불필요한 계정(" >> $rf 2>&1
+        for user in $vuln_users; do
+            echo -n "$user " >> $rf 2>&1
+        done
+        echo -en ")에 /bin/false, /sbin/nologin 쉘이 부여되지 않은 상태입니다.\t" >> $rf 2>&1
         echo "주요통신기반시설 가이드를 참고하시어 로그인이 불필요한 계정에 /bin/false 또는 /sbin/nologin 쉘을 부여하여 주시기 바랍니다." >> $rf 2>&1
     else
-        echo "$bash_vulnerability, $unknown_vulnerability" >> $rf
         echo -en "[취약]\t" >> $rf 2>&1
-        echo -n "로그인이 불필요한 계정($vuln_users)에 /bin/false, /sbin/nologin 쉘이 부여되지 않은 상태입니다." >> $rf 2>&1
+        echo -n "로그인이 불필요한 계정(" >> $rf 2>&1
+        for user in $vuln_users; do
+            echo -n "$user " >> $rf 2>&1
+        done
+        echo -n ")에 /bin/false, /sbin/nologin 쉘이 부여되지 않은 상태입니다." >> $rf 2>&1
         echo -en "로그인이 가능한 일반사용자($Vulnerable_users)의 bash_history 파일이 존재하지 않는 상태입니다.\t">> $rf 2>&1
         echo -n "주요통신기반시설 가이드를 참고하시어 로그인이 불필요한 계정에 /bin/false 또는 /sbin/nologin 쉘을 부여하여 주시기 바랍니다." >> $rf 2>&1
         echo "주요통신기반시설 가이드를 참고하시어 사용되지 않는 로그인 가능한 사용자 계정을 제거하거나 /bin/false 또는 /sbin/nologin 쉘을 부여하여 주시기 바랍니다.">> $rf 2>&1
