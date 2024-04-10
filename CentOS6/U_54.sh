@@ -6,16 +6,16 @@ U_54() {
 
     if [ -z "$tmout_value" ]; then
         echo -en "[취약]\t">> $rf 2>&1
-        echo -en "Session Timeout값이 설정되어 있지 않은 상태입니다.\t" >> $rf 2>&1
+        echo -en "Session timeout값이 설정되어 있지 않은 상태입니다.\t" >> $rf 2>&1
         echo "주요정보통신기반시설 가이드를 참고하시어 "Session Timeout" 값을 "600" 이하로 설정하여 주시기 바랍니다." >> $rf 2>&1
     else
         if [ "$tmout_value" -le 600 ]; then            
             echo -en "[양호]\t">> $rf 2>&1
-            echo "Session Timeout값이 $tmout_value 인 상태입니다.">> $rf 2>&1
+            echo "Session timeout값이 $tmout_value 인 상태입니다.">> $rf 2>&1
         else
             echo -en "[취약]\t">> $rf 2>&1
-            echo -en "Session Timeout값이 $tmout_value 인 상태입니다.\t">> $rf 2>&1
-            echo "주요정보통신기반시설 가이드를 참고하시어 "Session Timeout" 값을 "600" 이하로 설정하여 주시기 바랍니다." >> $rf 2>&1
+            echo -en "Session timeout값이 $tmout_value 인 상태입니다.\t">> $rf 2>&1
+            echo "주요정보통신기반시설 가이드를 참고하시어 "Session timeout" 값을 "600" 이하로 설정하여 주시기 바랍니다." >> $rf 2>&1
         fi
     fi
 }
