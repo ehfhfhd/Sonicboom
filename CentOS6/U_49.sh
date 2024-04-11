@@ -5,33 +5,48 @@ U_49() {
     unnecessary_accounts=("lp" "uucp" "nuucp")
     bash_users=$(awk -F : '$7 ~ /bash/ && $3 >= 500 {print $1}' /etc/passwd)
 
+    nologin=False
+    vuln_acc=False
+    
+    acc_users=""
+
     for acc in "${unnecessary_accounts[@]}"; do
         if grep -q "^$acc:" /etc/passwd; then
             shell=$(awk -F : -v acc="$acc" '$1 == acc {print $7}' /etc/passwd)
             if [ "$shell" != "/sbin/nologin" ]; then
-                echo -e "$acc" >> $rf 2>&1
-                echo -en "[취약]\t" >> $rf 2>&1
-                echo -en "시스템 계정 중 불필요한 계정이 존재하는 상태입니다.\t" >> $rf 2>&1
-                if [ -n "$bash_users" ]; then
-                    echo -en "[인터뷰]\t" >> $rf 2>&1
-                    echo -en "로그인이 가능한 일반 사용자 계정의 목적이 확인되지 않아 담당자 확인이 필요합니다.\t" >> $rf 2>&1
-                fi
-                echo "주요정보통신기반시설 가이드를 참고하시어 시스템 계정 중 불필요한 계정을 삭제하여 주시기 바랍니다." >> $rf 2>&1
-                return 0;
+                vuln_acc=True
+                acc_users+="$acc "
             fi
         fi
     done
-
+    
     if [ -n "$bash_users" ]; then
+        nologin=True
+    fi
+
+    if [ "$nologin" == "True" ] && [ "$vuln_acc" == "True" ]; then
         echo -en "[인터뷰]\t" >> $rf 2>&1
-        echo "로그인이 가능한 일반 사용자 계정의 목적이 확인되지 않아 담당자 확인이 필요합니다." >> $rf 2>&1
+        echo -n "로그인이 가능한 일반 사용자 계정(" >> $rf 2>&1
+        for user in $bash_users; do
+			echo -n "$user " >> $rf 2>&1
+		done
+        echo -n ")의 목적이 확인되지 않아 담당자 확인이 필요합니다." >> $rf 2>&1
+        echo -en "시스템 계정 중 불필요한 계정($acc_users)이 존재하는 상태입니다.\t" >> $rf 2>&1
+        echo "주요정보통신기반시설 가이드를 참고하시어 시스템 계정 중 불필요한 계정($acc_users)을 삭제하시거나 /bin/false 또는 /sbin/nologin 쉘을 부여하여 주시기 바랍니다." >> $rf 2>&1
+    elif [ "$nologin" == "False" ] && [ "$vuln_acc" == "True" ]; then
+        echo -en "[취약]\t" >> $rf 2>&1
+        echo -en "시스템 계정 중 불필요한 계정($acc_users)이 존재하는 상태입니다.\t" >> $rf 2>&1
+        echo "주요정보통신기반시설 가이드를 참고하시어 시스템 계정 중 불필요한 계정($acc_users)을 삭제하시거나 /bin/false 또는 /sbin/nologin 쉘을 부여하여 주시기 바랍니다." >> $rf 2>&1
+    elif [ "$nologin" == "True" ] && [ "$vuln_acc" == "False" ]; then
+        echo -en "[인터뷰]\t" >> $rf 2>&1
+        echo -n "로그인이 가능한 일반 사용자 계정(" >> $rf 2>&1
+        for user in $bash_users; do
+			echo -n "$user " >> $rf 2>&1
+		done
+        echo -en ")의 목적이 확인되지 않아 담당자 확인이 필요합니다.\t" >> $rf 2>&1
     else
         echo -en "[양호]\t" >> $rf 2>&1
         echo "시스템 계정 중 불필요한 계정이 없는 상태입니다." >> $rf 2>&1
     fi
 }
 U_49
-
-#
-# bash account계정 확인 -> uid값 500이상 인터뷰
-# 불필요한 계정 확인 -> nologin 아니면 취약

@@ -6,7 +6,7 @@ U_04() {
 		if [ -n "$vulnerable_users" ]; then
 			echo -en "[취약]\t" >> $rf 2>&1
 			for user in $vulnerable_users; do
-					echo -n "$user " >> "$rf" 2>&1
+					echo -n "$user " >> $rf 2>&1
 			done
 			echo -en " 사용자의 암호가 암호화로 설정되어 있지 않습니다.\t" >> $rf 2>&1
 			echo "주요통신기반시설 가이드를 참고하시어 모든 사용자의 암호를 암호화로 설정하여 주시기 바랍니다." >> $rf 2>&1
