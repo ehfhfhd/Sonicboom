@@ -1,7 +1,3 @@
-#!/bin/bash
-
-rf="/root/test_1/result_28"
-
 U_28() {
     echo -en "U-28(상)\t3. 서비스  관리\t3.10 NIS. NIS+ 점검\t" >> $rf 2>&1
     echo -en "불필요한 NFS 서비스 사용여부 점검\t" >> $rf 2>&1
@@ -17,5 +13,3 @@ U_28() {
         return 0
     fi
 }
-
-U_28
