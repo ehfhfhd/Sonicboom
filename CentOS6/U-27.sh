@@ -4,23 +4,25 @@ U_27() {
 
     file_list=$(ls -A /etc/xinetd.d)
     count=0
-   
-    for filename in $file_list; do
-        if [ "$filename" != "." ] && [ "$filename" != ".." ]; then
-            check_count=$(grep -vE '^#|^\s*' "/etc/xinetd.d/$filename" | grep -i 'disable' | awk -F "=" '{print $2}' | wc -w)
-            check=$(grep -vE '^#|^\s*' "/etc/xinetd.d/$filename" | grep -i 'disable' | awk -F "=" '{print $2}' | grep -i 'yes' | wc -w)
-           
-            if [ "$check" -ne "$check_count" ]; then
+
+    rpc_services=("rpc.cmsd" "rpc.ttdbserverd" "sadmind" "rusersd" "walld" "sprayd" "rstatd" "rpc.nisd" "rexd" "rpc.pcnfsd" "rpc.statd" "rpc.ypupdated" "rpc.rquotad" "kcms_server" "cachefsd")
+
+    # 불필요한 RPC 서비스가 활성화 되어 있는 경우
+    for rpc_service in "${rpc_services[@]}"; do
+        process=$(ps -ef | grep -E "\b${rpc_service}\b" | grep -v grep)
+        if [ -n "$process" ]; then
+            owner=$(echo "$process" | awk '{print $1}')
+            if [ "$owner" != "root" ]; then
                 echo -en "[취약]\t" >> $rf 2>&1
-                echo -en "불필요한 RPC 서비스(/etc/xinetd.d/$filename)가 활성화되어 있는 상태입니다.\t" >> $rf 2>&1
+                echo -en "불필요한 RPC 서비스($rpc_service)가 활성화되어 있는 상태입니다.\t" >> $rf 2>&1
                 echo "주요정보통신기반시설 가이드를 참고하시어 불필요한 RPC 서비스를 비활성화하여 주시기 바랍니다." >> $rf 2>&1
-                count=$((count + 1))
+                return 0
             fi
         fi
     done
-    
-    if [ "$count" -eq 0 ]; then
-        echo -en "[양호]\t" >> $rf 2>&1
-        echo "불필요한 RPC 서비스가 비활성화 되어 있는 상태입니다." >> $rf 2>&1
-    fi
+
+    # 모든 RPC 서비스가 비활성화 되어 있는 경우
+    echo -en "[양호]\t" >> $rf 2>&1
+    echo "불필요한 RPC 서비스가 비활성화 되어 있는 상태입니다." >> $rf 2>&1
+    return 0
 }
