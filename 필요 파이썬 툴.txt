@@ -1,0 +1,5 @@
+필요 파이썬 툴
+
+pip install pandas
+pip install openpyxl
+pip install xlsxwriter
