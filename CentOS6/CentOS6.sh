@@ -527,7 +527,9 @@ U_48() {
         mindays=$(awk '!/^\s*#/ && /^\s*PASS_MIN_DAYS/{print $2}' /etc/login.defs)
         if [ -n "$mindays" ] && [ "$mindays" -ge 1 ]; then
             echo "    \"status\": \"[양호]\","
-            echo "    \"details\": \"/etc/login.defs 파일에 패스워드 최소 사용기간이 $mindays 일로 설정되어 있는 상태입니다.\""
+            echo "    \"details\": ["
+            echo "      \"/etc/login.defs 파일에 패스워드 최소 사용기간이 $mindays 일로 설정되어 있는 상태입니다.\""
+            echo "    ]"
         else
             if [ -z "$mindays" ]; then
                 details+=("\"/etc/login.defs 파일에 패스워드 최소 사용기간이 설정되어 있지 않은 상태입니다.\"")
@@ -597,11 +599,13 @@ U_49() {
         echo "주요정보통신기반시설 가이드를 참고하시어 시스템 계정 중 불필요한 계정($acc_users)을 삭제하시거나 /bin/false 또는 /sbin/nologin 쉘을 부여하여 주시기 바랍니다."
     elif [ "$nologin" == "True" ] && [ "$vuln_acc" == "False" ]; then
         echo "    \"status\": \"[인터뷰]\","
-        echo -n "    \"details\":\"로그인이 가능한 일반 사용자 계정("
+        echo "    \"details\": ["
+        echo -n "      \"로그인이 가능한 일반 사용자 계정("
         for user in $bash_users; do
 			echo -n "$user "
 		done
         echo ")의 목적이 확인되지 않아 담당자 확인이 필요합니다.\""
+        echo "    ]"
     else
         echo "    \"status\":\"[양호]\","
         echo "    \"details\": ["
@@ -1526,8 +1530,9 @@ U_17() {
                 if [ "$owner" == "root" ] || [ "$owner" == "$(whoami)" ]; then
                     if [ "$read_perms" -le 6 ] && [ "$write_perms" -eq 0 ] && [ "$execute_perms" -eq 0 ] && [ "$plus_check" -eq 0 ]; then
                         echo "    \"status\": \"[양호]\","
-                        echo "    \"details\": \"r계열 서비스에 모든 보안 설정이 되어 있는 상태입니다.\""
-                        
+                        echo "    \"details\": ["
+                        echo "      \"r계열 서비스에 모든 보안 설정이 되어 있는 상태입니다.\""
+                        echo "    ]"
                         echo "  },"
                         return 0
                     else
@@ -1634,7 +1639,9 @@ U_55() {
 			etc_hostslpd_permission=`stat -c %03a /etc/hosts.lpd`
 			if [ $etc_hostslpd_permission -eq 600 ] || [ $etc_hostslpd_permission -eq 400 ] || [ $etc_hostslpd_permission -eq 200 ] || [ $etc_hostslpd_permission -eq 000 ]; then
 				echo "    \"status\": \"[양호]\","
-				echo "    \"details\": \"/hosts.lpd 파일의 소유자가 root이고 권한이 600 이하인 상태입니다.\""
+				echo "    \"details\": ["
+                echo "      \"/hosts.lpd 파일의 소유자가 root이고 권한이 600 이하인 상태입니다.\""
+                echo "    ]"
 			else
 				details+=("\"/etc/hosts.lpd 파일의 권한이 ${etc_hostslpd_permission}으로 취약한 상태입니다.\"")
 				solutions+=("\"주요정보통신기반시설 가이드를 참고하시어 /hosts.lpd 파일 권한을 600(-rw-------) 이하로 설정하거나 삭제하여 주시기 바랍니다.\"")
@@ -2013,7 +2020,9 @@ U_22() {
 
             if [[ "$perms_correct" == true && "$owner" == "$CROND_USER" && "$group" == "$CROND_GROUP" ]]; then
                 echo "    \"status\": \"[양호]\","
-                echo "    \"details\": \"$file 의 권한이 $file_perms 이고, 소유자가 root로 설정되어 있는 상태입니다.\""
+                echo "    \"details\": ["
+                echo "      \"$file 의 권한이 $file_perms 이고, 소유자가 root로 설정되어 있는 상태입니다.\""
+                echo "    ]"
             else
                 if [[ "$perms_correct" == false ]]; then
                     details+=("\"$file 의 권한이 $file_perms 로 설정되어 있는 상태입니다.\"")
@@ -3589,3 +3598,9 @@ U_72
     echo "  ]" # 체크결과 배열 종료
     echo "}" # 전체 JSON 종료
 } >> "$rf"
+
+# # 중앙 서버에서 디렉토리 생성 확인 및 생성
+# ssh jwkim@172.26.219.45 "mkdir -p /srv/scp_files" # p옵션: 존재하지 않는 중간의 디렉토리를 자동 생성
+
+# # 결과 파일 전송
+# scp "result.json" jwkim@172.26.219.45:/srv/scp_files
