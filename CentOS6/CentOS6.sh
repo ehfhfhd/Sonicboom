@@ -56,7 +56,7 @@ U_01() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.1 root 계정 원격 접속 제한\","
     echo "    \"Description\": \"시스템 정책에 root 계정의 원격 터미널 접속 차단 설정이 적용되어 있는지 점검\","
-    
+    echo "    \"Command\": \"cat /etc/ssh/sshd_config\","
 
     telnet_running=$(ps -ef | grep telnet | grep -v grep)
     ssh_running=$(ps -ef | grep ssh | grep -v grep)
@@ -142,7 +142,7 @@ U_02() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.2 패스워드 복잡성 설정\","
     echo "    \"Description\": \"시스템 정책에 사용자 계정(root 및 일반 계정 모두 해당) 패스워드 복잡성 관련 설정이 되어 있는지 점검\","
-    
+    echo "    \"Command\": \"cat /etc/pam.d/system-auth\","
 
     declare -a details
     declare -a solutions
@@ -277,7 +277,7 @@ U_03() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.3 계정 잠금 임계값 설정\","
     echo "    \"Description\": \"시스템 정책에 사용자 로그인 실패 임계값이 설정되어 있는지 점검\","
-    
+    echo "    \"Command\": \"cat /etc/pam.d/system-auth\","
 
     system_auth_file="/etc/pam.d/system-auth"
 
@@ -326,7 +326,7 @@ U_04() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.4 패스워드 파일 보호\","
     echo "    \"Description\": \"시스템 사용자 계정(root, 일반계정) 정보가 저장된 파일(예: /etc/passwd, /etc/shadow)에 사용자 계정 패스워드가 암호화되어 저장되어 있는지 점검\","
-    
+    echo "    \"Command\": \"cat /etc/passwd\","
 
     declare -a details
     declare -a solutions
@@ -363,7 +363,7 @@ U_44() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.5 root 이외의 UID가 '0' 금지\","
     echo "    \"Description\": \"사용자 계정 정보가 저장된 파일(예: /etc/passwd)에 root(UID=0) 계정과 동일한 UID(User Identification)를 가진 계정이 존재하는지 점검\","
-    
+    echo "    \"Command\": \"cat /etc/passwd\","
 
     declare -a details
     declare -a solutions
@@ -395,7 +395,7 @@ U_45() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.6 root 계정 su 제한\","
     echo "    \"Description\": \"시스템 사용자 계정 그룹 설정 파일(예: /etc/group)에 su 관련 그룹이 존재하는지 점검 및 su 명령어가 su 관련 그룹에서만 허용되도록 설정되어 있는지 점검\","
-    
+    echo "    \"Command\": \"cat /etc/pam.d/su; cat /etc/group | grep wheel; ls -al /bin/su\","
 
     pam_wheelso_count=$(grep -vE '^#|^\s#' /etc/pam.d/su | grep 'pam_wheel.so')
     su_file_permission=$(stat -c %a /bin/su)
@@ -441,7 +441,7 @@ U_46() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.7 패스워드 최소 길이 설정\","
     echo "    \"Description\": \"시스템 정책에 패스워드 최소(8자 이상) 길이 설정이 적용되어 있는지 점검\","
-    
+    echo "    \"Command\": \"cat /etc/login.defs | grep PASS\","
     
     declare -a details
     declare -a solutions
@@ -480,7 +480,7 @@ U_47() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.8 패스워드 최대 사용기간 설정\","
     echo "    \"Description\": \"시스템 정책에 패스워드 최대(90일 이하) 사용기간 설정이 적용되어 있는지 점검\","
-    
+    echo "    \"Command\": \"cat /etc/login.defs | grep PASS\","
 
     declare -a details
     declare -a solutions
@@ -518,7 +518,7 @@ U_48() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.9 패스워드 최소 사용기간 설정\","
     echo "    \"Description\": \"시스템 정책에 패스워드 최소 사용기간 설정이 적용되어 있는지 점검\","
-    
+    echo "    \"Command\": \"cat /etc/login.defs | grep PASS\","
 
     declare -a details
     declare -a solutions
@@ -556,7 +556,7 @@ U_49() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.10 불필요한 계정 제거\","
     echo "    \"Description\": \"시스템 계정 중 불필요한 계정(퇴직, 전직, 휴직 등의 이유로 사용하지 않는 계정 및 장기적으로 사용하지 않는 계정 등)이 존재하는지 점검\","
-    
+    echo "    \"Command\": \"cat /etc/passwd | grep \\\"lp\|uucp\|nuucp\\\"; cat /etc/passwd | grep bash\","
 
     declare -a details
     declare -a solutions
@@ -626,7 +626,7 @@ U_50() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.11 관리자 그룹에 최소한의 계정 포함\","
     echo "    \"Description\": \"시스템 관리자 그룹에 최소한(root 계정과 시스템 관리에 허용된 계정)의 계정만 존재하는지 점검\","
-    
+    echo "    \"Command\": \"cat /etc/group | grep root\","
 
     declare -a details
     declare -a solutions
@@ -664,14 +664,15 @@ U_50() {
     echo "  },"  
 } >> "$rf"
 
-U_51() {
+U_51() { #check
     echo "  {"
     echo "    \"Item\": \"U-51\","
     echo "    \"Importance\": \"(하)\","
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.12 계정이 존재하지 않는 GID 금지\","
     echo "    \"Description\": \"그룹(예: /etc/group) 설정 파일에 불필요한 그룹(계정이 존재하지 않고 시스템 관리나 운용에 사용되지 않는 그룹, 계정이 존재하고 시스템 관리나 운용에 사용되지 않는 그룹 등)이 존재하는지 점검\","
-    
+    # echo "    \"Command\": \"awk -F':' '/bash$/ {print $1 \\\":\\\" $4}' /etc/passwd | while IFS=: read user gid; do grep \\\":$gid:\\\" /etc/group; done\","
+    echo "    \"Command\": \"cat /etc/passwd | grep bash; cat /etc/group\","
     
     declare -a details
     declare -a solutions
@@ -724,7 +725,7 @@ U_52() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.13 동일한 UID 금지\","
     echo "    \"Description\": \"'/etc/passwd' 파일 내 UID가 동일한 사용자 계정 존재 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/passwd\","
 
     duplicated_uids=$(awk -F: '{print $3}' /etc/passwd | sort -n | uniq -d)
 
@@ -750,7 +751,7 @@ U_53() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.14 사용자 shell 점검\","
     echo "    \"Description\": \"로그인이 불필요한 계정(adm, sys, daemon 등)에 쉘 부여 여부 및 로그인 가능한 모든 계정의 bash_history 파일 존재 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/passwd | grep \\\"daemon\|bin:\|sys\|adm\|listen\|nobody\|nobody4\|noaccess\|diag\|operator\|gopher\|games\|lp\|uucp\|nuucp\|\\\"\","
 
     declare -a details
     declare -a solutions
@@ -818,7 +819,7 @@ U_54() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.15 Session Timeout 설정\","
     echo "    \"Description\": \"사용자 쉘에 대한 환경설정 파일에서 session timeout 설정 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/profile\","
 
     declare -a details
     declare -a solutions
@@ -852,7 +853,7 @@ U_05() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.1 root홈, 패스 디렉터리 권한 및 패스 설정\","
     echo "    \"Description\": \"root 계정의 PATH 환경변수에 \\\".\\\" 또는 \\\"::\\\"이 포함되어 있는지 점검\","
-    
+    echo "    \"Command\": \"echo \$PATH\","
 
     declare -a details
     declare -a solutions
@@ -879,7 +880,7 @@ U_06() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.2 파일 및 디렉터리 소유자 설정\","
     echo "    \"Description\": \"소유자 불분명한 파일이나 디렉토리가 존재하는지 점검\","
-    
+    echo "    \"Command\": \"find / -nouser -or -nogroup\","
 
 	if [ `find / \( -nouser -or -nogroup \) 2>/dev/null | wc -l` -gt 0 ]; then
         echo "    \"status\": \"[인터뷰]\","
@@ -903,7 +904,7 @@ U_07() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.3 /etc/passwd 파일 소유자 및 권한 설정\","
     echo "    \"Description\": \"/etc/passwd 파일의 권한 적절성 점검\","
-    
+    echo "    \"Command\": \"cat /etc/passwd\","
 
     declare -a details
     declare -a solutions
@@ -957,7 +958,7 @@ U_08() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.4 /etc/shadow 파일 소유자 및 권한 설정\","
     echo "    \"Description\": \"/etc/shadow 파일의 권한 적절성 점검\","
-    
+    echo "    \"Command\": \"cat /etc/shadow\","
 
     declare -a details
     declare -a solutions
@@ -1013,7 +1014,7 @@ U_09() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.5 /etc/hosts 파일 소유자 및 권한 설정\","
     echo "    \"Description\": \"/etc/hosts 파일의 권한 적절성 점검\","
-    
+    echo "    \"Command\": \"cat /etc/hosts\","
 
     declare -a details
     declare -a solutions
@@ -1070,7 +1071,7 @@ U_10() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.6 /etc/(x)inetd.conf 파일 소유자 및 권한 설정\","
     echo "    \"Description\": \"/etc/(x)inetd.conf 파일의 권한 적절성 점검\","
-    
+    echo "    \"Command\": \"find / -name xinetd.conf\","
 
     declare -a details
     declare -a solutions
@@ -1140,8 +1141,9 @@ U_11() {
     echo "    \"Item\": \"U-11\","
     echo "    \"Importance\": \"(상)\","
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
-    echo "    \"Sub_Category\": \"2.7 /etc/syslog.conf 파일 소유자 및 권한 설정\","
-    echo "    \"Description\": \"/etc/syslog.conf 파일의 권한 적절성 점검\","
+    echo "    \"Sub_Category\": \"2.7 /etc/(r)syslog.conf 파일 소유자 및 권한 설정\","
+    echo "    \"Description\": \"/etc/(r)syslog.conf 파일의 권한 적절성 점검\","
+    echo "    \"Command\": \"ls -al /etc/syslog.conf /etc/rsyslog.conf /etc/syslog-ng.conf\","
 
     declare -a details
     declare -a solutions
@@ -1253,7 +1255,7 @@ U_12() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.8 /etc/services 파일 소유자 및 권한 설정\","
     echo "    \"Description\": \"/etc/services 파일의 권한 적절성 점검\","
-    
+    echo "    \"Command\": \"ls -al /etc/services\","
 
     declare -a details
     declare -a solutions
@@ -1307,7 +1309,7 @@ U_13() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.9 SUID, SGID 설정 파일 점검\","
     echo "    \"Description\": \"불필요하거나 악의적인 파일의 SUID, SGID 설정 여부 점검\","
-    
+    echo "    \"Command\": \"ls -al /sbin/dump /sbin/restore /sbin/unix_chkpwd /usr/bin/at /usr/bin/lpq /usr/bin/lpq-lpd /usr/bin/lpr /usr/bin/lpr-lpd /usr/bin/lprm /usr/bin/lprm-lpd /usr/bin/newgrp /usr/sbin/lpc /usr/sbin/lpc-lpd /usr/sbin/traceroute\","
 
     declare -a details
     declare -a solutions
@@ -1342,7 +1344,8 @@ U_14() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.10 사용자, 시스템 시작파일 및 환경파일 소유자 및 권한 설정\","
     echo "    \"Description\": \"홈 디렉토리 내의 환경변수 파일에 대한 소유자 및 접근권한이 관리자 또는 해당 계정으로 설정되어 있는지 점검\","
-    
+    # echo "    \"Command\": \"find /home /root -mindepth 1 -maxdepth 2 -type d -exec sh -c 'grep -q ":$1:" /etc/passwd && ls -ald $1/.bash*' sh {} \;\","
+    echo "    \"Command\": \"cat /etc/passwd | grep bash; ls -al /root/.bash* /home/*/.bash*\","
 
     declare -a details
     declare -a solutions
@@ -1436,7 +1439,7 @@ U_15() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.11 world writable 파일 점검\","
     echo "    \"Description\": \"불필요한 world writable 파일 존재 여부 점검\","
-    
+    echo "    \"Command\": \"find / ! \( -path '/proc*' -o -path '/sys/fs*' -o -path '/usr/local*' -prune \) -perm -2 -type f -exec ls -al {} \;\","
     
 	if [ `find / ! \( -path '/proc*' -o -path '/sys/fs*' -o -path '/usr/local*' -prune \) -perm -2 -type f 2>/dev/null | wc -l` -gt 0 ]; then
 		echo "    \"status\": \"[인터뷰]\","
@@ -1461,7 +1464,7 @@ U_16() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.12 /dev에 존재하지 않는 device 파일 점검\","
     echo "    \"Description\": \"존재하지 않는 device 파일 존재 여부 점검\","
-    
+    echo "    \"Command\": \"find /dev -type f -exec ls -al {} \;\","
     
 	if [ `find /dev -type f 2>/dev/null | wc -l` -gt 0 ]; then
 		echo "    \"status\": \"[인터뷰]\","
@@ -1485,7 +1488,7 @@ U_17() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.13 \$HOME/.rhosts, hosts.equiv 사용 금지\","
     echo "    \"Description\": \"/etc/hosts.equiv 파일 및 .rhosts 파일 사용자를 root 또는 해당 계정으로 설정한 뒤 권한을 600으로 설정하고 해당 파일 설정에 '+' 설정(모든 호스트 허용)이 포함되지 않도록 설정되어 있는지 점검\","
-    
+    echo "    \"Command\": \"ls -al /etc/hosts.equiv /home/*.rhost; cat /etc/hosts.equiv /home/*.rhost\","
 
     declare -a details
     declare -a solutions
@@ -1581,7 +1584,7 @@ U_18() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.14 접속 IP 및 포트 제한\","
     echo "    \"Description\": \"허용할 호스트에 대한 접속 IP 주소 제한 및 포트 제한 설정 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/hosts.deny /etc/hosts.allow\","
 
     declare -a details
     declare -a solutions
@@ -1629,6 +1632,7 @@ U_55() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.15 hosts.lpd 파일 소유자 및 권한 설정\","
     echo "    \"Description\": \"/etc/hosts.lpd 파일의 삭제 및 권한 적절성 점검\","
+    echo "    \"Command\": \"ls -al /etc/hosts.lpd\","
     
     declare -a details
     declare -a solutions
@@ -1669,7 +1673,7 @@ U_56() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.17 UMASK 설정 관리\","
     echo "    \"Description\": \"시스템 UMASK 값이 022 이상인지 점검\","
-    
+    echo "    \"Command\": \"cat /etc/profile\","
 
     declare -a details
     declare -a solutions
@@ -1726,7 +1730,9 @@ U_57() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.18 홈디렉토리 소유자 및 권한 설정\","
     echo "    \"Description\": \"홈 디렉토리의 소유자 외 타사용자가 해당 홈 디렉토리를 수정할 수 없도록 제한하는지 점검\","
-    
+    # echo "    \"Command\": \"find /home /root -mindepth 1 -maxdepth 2 -type d -exec sh -c 'grep -q ":$1:" /etc/passwd && ls -ald $1' sh {} \;\","
+    echo "    \"Command\": \"cat /etc/passwd | grep bash; ls -ald /root/ /home/*/\","
+
     declare -a details
     declare -a solutions
 
@@ -1810,7 +1816,8 @@ U_58() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.19 홈디렉토리로 지정한 디렉토리의 존재 관리\","
     echo "    \"Description\": \"사용자 계정과 홈 디렉토리의 일치 여부 점검\","
-    
+    # echo "    \"Command\": \"find /home /root -mindepth 1 -maxdepth 2 -type d -exec sh -c 'grep -q ":$1:" /etc/passwd && ls -ald $1' sh {} \;\","
+    echo "    \"Command\": \"cat /etc/passwd | grep bash; ls -ald /root/ /home/*/\","
 
     declare -a details
     declare -a solutions
@@ -1846,7 +1853,8 @@ U_59() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.20 숨겨진 파일 및 디렉토리 검색 및 제거\","
     echo "    \"Description\": \"숨김 파일 및 디렉토리 내 의심스러운 파일 존재 여부 점검\","
-    
+    # echo "    \"Command\": \"find /home /root -mindepth 1 -maxdepth 2 -type d -exec sh -c 'grep -q ":$1:" /etc/passwd && ls -ald $1 .*' sh {} \;\","
+    echo "    \"Command\": \"find /root/.* /home/*/.*\","
 
 	if [ `find / -name '.*' -type f 2>/dev/null | wc -l` -gt 0 ]; then
 		echo "    \"status\": \"[인터뷰]\","
@@ -1875,6 +1883,7 @@ U_19() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.1 Finger 서비스 비활성화\","
     echo "    \"Description\": \"finger 서비스 비활성화 여부 점검\","
+    echo "    \"Command\": \"ps -ef | grep finger\","
     
     declare -a details
     declare -a solutions
@@ -1903,7 +1912,7 @@ U_20() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.2 Anonymous FTP 비활성화\","
     echo "    \"Description\": \"익명 FTP 접속 허용 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/passwd | grep ftp\","
 
     declare -a details
     declare -a solutions
@@ -1950,7 +1959,7 @@ U_21() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.3 r계열 서비스 비활성화\","
     echo "    \"Description\": \"r-command 서비스 비활성화 여부 점검\","
-    
+    echo "    \"Command\": \"ls -al /etc/xinetd.d\","
 
     declare -a details
     declare -a solutions
@@ -1994,7 +2003,7 @@ U_22() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.4 crond 파일 소유자 및 권한 설정\","
     echo "    \"Description\": \"Cron 관련 파일의 권한 적절성 점검\","
-    
+    echo "    \"Command\": \"ls -al /etc/crontab /etc/cron.hourly /etc/cron.daily /etc/cron.weekly /etc/cron.monthly /etc/cron.d\","
 
     declare -a details
     declare -a solutions
@@ -2053,7 +2062,7 @@ U_23() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.5 DoS 공격에 취약한 서비스 비활성화\","
     echo "    \"Description\": \"사용하지 않는 DoS 공격에 취약한 서비스의 실행 여부 점검\","
-    
+    echo "    \"Command\": \"ls -al /etc/xinetd.d\","
 
     declare -a details
     declare -a solutions
@@ -2086,7 +2095,7 @@ U_24() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.6 NFS 서비스 비활성화\","
     echo "    \"Description\": \"불필요한 NFS 서비스 사용여부 점검\","
-    
+    echo "    \"Command\": \"ps -ef | grep nfs\","
 
     declare -a details
     declare -a solutions
@@ -2124,7 +2133,7 @@ U_25() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.7 NFS 접근 통제\","
     echo "    \"Description\": \"NFS(Network File System) 사용 시 허가된 사용자만 접속할 수 있도록 접근 제한 설정 적용 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/exports\","
 
     declare -a details
     declare -a solutions
@@ -2166,7 +2175,7 @@ U_26() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.8 automountd 제거\","
     echo "    \"Description\": \"automountd 서비스 데몬의 실행 여부 점검\","
-    
+    echo "    \"Command\": \"ps -ef | grep auto\","
 
     declare -a details
     declare -a solutions
@@ -2195,7 +2204,7 @@ U_27() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.9 RPC 서비스 확인\","
     echo "    \"Description\": \"불필요한 RPC 서비스 실행 여부 점검\","
-    
+    echo "    \"Command\": \"ps -ef | grep rpc\","
 
     declare -a details
     declare -a solutions
@@ -2237,7 +2246,7 @@ U_28() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.10 NIS, NIS+ 점검\","
     echo "    \"Description\": \"불필요한 NIS 서비스 사용여부 점검\","
-    
+    echo "    \"Command\": \"ps -ef | grep \\\"ypserv\|ypbind\|ypxfrd\|rpc.yppasswdd\|rpc.ypupdated\\\"\","
 
     declare -a details
     declare -a solutions
@@ -2273,7 +2282,7 @@ U_29() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.11 tftp, talk 서비스 비활성화\","
     echo "    \"Description\": \"tftp, talk 등의 서비스를 사용하지 않거나 취약점이 발표된 서비스의 활성화 여부 점검\","
-    
+    echo "    \"Command\": \"ps -ef | grep \\\"tftp\|talk\\\"\","
 
     declare -a details
     declare -a solutions
@@ -2305,7 +2314,7 @@ U_30() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.12 Sendmail 버전 관리\","
     echo "    \"Description\": \"Sendmail 버전과 실행 상태 점검\","
-    
+    echo "    \"Command\": \"rpm -qa | grep sendmail\","
 
     declare -a details
     declare -a solutions
@@ -2349,7 +2358,7 @@ U_31() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.13 스팸 메일 릴레이 제한\","
     echo "    \"Description\": \"SMTP 서버의 릴레이 기능 제한 여부 점검\","
-    
+    echo "    \"Command\": \"find / -name 'sendmail.cf' -type f\","
 
     declare -a details
     declare -a solutions
@@ -2398,7 +2407,7 @@ U_32() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.14 일반사용자의 Sendmail 실행 방지\","
     echo "    \"Description\": \"SMTP 서비스 사용 시 일반사용자의 q 옵션 제한 여부 점검\","
-    
+    echo "    \"Command\": \"find / -name 'sendmail.cf' -type f -exec cat {} \;\","
 
     declare -a details
     declare -a solutions
@@ -2441,7 +2450,7 @@ U_33() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.15 DNS 보안 버전 패치\","
     echo "    \"Description\": \"BIND 최신버전 사용 유무 및 주기적 보안 패치 여부 점검\","
-    
+    echo "    \"Command\": \"rpm -qa | grep bind\","
 
     declare -a details
     declare -a solutions
@@ -2492,7 +2501,7 @@ U_34() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.16 DNS Zone Transfer\","
     echo "    \"Description\": \"Secondary Name Server로만 Zone 정보 전송 제한 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/named.conf\","
 
     declare -a details
     declare -a solutions
@@ -2526,7 +2535,7 @@ U_35() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.17 Apache 디렉토리 리스팅 제거\","
     echo "    \"Description\": \"디렉토리 검색 기능의 활성화 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/httpd/conf/httpd.conf /etc/httpd/conf.d/*.conf\","
 
     cf=("/etc/httpd/conf/httpd.conf" "/etc/httpd/conf.d/"*.conf)
 
@@ -2575,7 +2584,7 @@ U_36(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.18 Apache 웹 프로세스 권한 제한\","
     echo "    \"Description\": \"Apache 데몬이 root 권한으로 구동되는지 여부 점검\","
-    
+    echo "    \"Command\": \"ps -ef | grep httpd; cat /etc/httpd/conf/httpd.conf /etc/httpd/conf.d/*.conf\","
 
     cf=("/etc/httpd/conf/httpd.conf" "/etc/httpd/conf.d/"*.conf)
 
@@ -2624,7 +2633,7 @@ U_37(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.19 Apache 상위 디렉토리 접근 금지\","
     echo "    \"Description\": \"\\\"..\\\" 와 같은 문자 사용 등으로 상위 경로로 이동이 가능한지 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/httpd/conf/httpd.conf /etc/httpd/conf.d/*.conf\","
 
     cf=("/etc/httpd/conf/httpd.conf" "/etc/httpd/conf.d/"*.conf)
 
@@ -2671,7 +2680,7 @@ U_38(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.20 Apache 불필요한 파일 제거\","
     echo "    \"Description\": \"Apache 설치 시 기본으로 생성되는 불필요한 파일의 삭제 여부 점검\","
-    
+    echo "    \"Command\": \"find / -type f -name \\\"manual\\\" -o -name \\\"htdocs\\\"\","
 
     cf=("/etc/httpd/"* "/var/www/"*)
 
@@ -2715,7 +2724,7 @@ U_39(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.21 Apache 링크 사용 금지\","
     echo "    \"Description\": \"심볼릭 링크, aliases 사용 제한 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/httpd/conf/httpd.conf /etc/httpd/conf.d/*.conf\","
 
     cf=("/etc/httpd/conf/httpd.conf" "/etc/httpd/conf.d/"*.conf)
 
@@ -2763,7 +2772,7 @@ U_40(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.22 Apache 파일 업로드 및 다운로드 제한\","
     echo "    \"Description\": \"파일 업로드 및 다운로드의 사이즈 제한 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/httpd/conf/httpd.conf /etc/httpd/conf.d/*.conf\","
 
     declare -a details
     declare -a solutions
@@ -2812,7 +2821,7 @@ U_41(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.23 Apache 웹 서비스 영역의 분리\","
     echo "    \"Description\": \"웹 서버의 루트 디렉토리와 OS의 루트 디렉토리를 다르게 지정하였는지 점검\","
-    
+    echo "    \"Command\": \"cat /etc/httpd/conf/httpd.conf /etc/httpd/conf.d/*.conf\","
 
     declare -a details
     declare -a solutions
@@ -2859,7 +2868,7 @@ U_60(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.24 ssh 원격접속 허용\","
     echo "    \"Description\": \"원격 접속 시 SSH 프로토콜을 사용하는지 점검\","
-    
+    echo "    \"Command\": \"netstat -tlnp\","
 
     declare -a details
     declare -a solutions
@@ -2909,7 +2918,7 @@ U_61(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.25 FTP 서비스 확인\","
     echo "    \"Description\": \"FTP 서비스가 활성화되어있는지 점검\","
-    
+    echo "    \"Command\": \"ps -ef | grep ftp\","
 
     declare -a details
     declare -a solutions
@@ -2941,7 +2950,7 @@ U_62(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.26 FTP 계정 shell 제한\","
     echo "    \"Description\": \"FTP 기본 계정에 쉘 설정 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/passwd | grep ftp\","
 
     declare -a details
     declare -a solutions
@@ -2984,7 +2993,7 @@ U_63(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.27 FTP 접근제어 파일 소유자 및 권한 설정\","
     echo "    \"Description\": \"FTP 접근제어 설정파일에 관리자 외 비인가자들이 수정 제한 여부 점검\","
-    
+    echo "    \"Command\": \"ls -al /etc/ftpusers\","
 
     declare -a details
     declare -a solutions
@@ -3045,7 +3054,7 @@ U_64(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.28 FTP 접속 시 root 계정 차단\","
     echo "    \"Description\": \"FTP 서비스를 사용할 경우 ftpusers 파일 root 계정이 포함 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/ftpusers\","
 
     declare -a details
     declare -a solutions
@@ -3097,7 +3106,7 @@ U_65(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.29 AT 파일 소유자 및 권한 설정\","
     echo "    \"Description\": \"관리자(root)만 at.allow 파일과 at.deny 파일을 제어할 수 있는지 점검\","
-    
+    echo "    \"Command\": \"ls -al /etc/at.deny /etc/at.allow\","
 
     declare -a details
     declare -a solutions
@@ -3140,7 +3149,7 @@ U_66(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.30 SNMP 서비스 구동 점검\","
     echo "    \"Description\": \"SNMP 서비스 활성화 여부 점검\","
-    
+    echo "    \"Command\": \"ps -ef | grep snmp\","
 
     declare -a details
     declare -a solutions
@@ -3178,7 +3187,7 @@ U_67(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.31 SNMP 서비스 Community String의 복잡성 설정\","
     echo "    \"Description\": \"SNMP Community String 복잡성 설정 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/snmp/snmpd.conf\","
 
     declare -a details
     declare -a solutions
@@ -3203,7 +3212,7 @@ U_67(){
             grep -Eq "^\s*com2sec.*\s(public|private)\s" "$conf_file"
             if [ $? -eq 0 ]; then
                 community_name=$(grep -Eo "(public|private)" "$conf_file" | uniq)
-                details+=("\"SNMP community 이름이 $community_name으로 설정되어 있습니다.\"")
+                details+=("\"SNMP community 이름이 $community_name 으로 설정되어 있는 상태입니다.\"")
                 solutions+=("\"주요정보통신기반시설 가이드를 참고하시어 해당 파일에서 커뮤니티명을 추측하기 어려운 값으로 변경하여 주시기 바랍니다.\"")
             fi
         done < <(find / -type f -name 'snmpd.conf' 2>/dev/null)
@@ -3221,7 +3230,7 @@ U_68(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.32 로그온 시 경고 메시지 제공\","
     echo "    \"Description\": \"서버 및 서비스에 로그온 시 불필요한 정보 차단 설정 및 불법적인 사용에 대한 경고 메시지 출력 여부 점검\","
-    
+    echo "    \"Command\": \"ps -ef | grep \\\"telnet\|ftp\|sendmail\|named\\\"\","
 
     declare -a details
     declare -a solutions
@@ -3275,7 +3284,7 @@ U_69(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.33 NFS 설정파일 접근권한\","
     echo "    \"Description\": \"NFS 접근제어 설정파일에 대한 비인가자들의 수정 제한 여부 점검\","
-    
+    echo "    \"Command\": \"ls -al /etc/exports\","
 
     declare -a details
     declare -a solutions
@@ -3330,7 +3339,7 @@ U_70(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.34 expn, vrfy 명령어 제한\","
     echo "    \"Description\": \"SMTP 서비스 사용 시 vrfy, expn 명령어 사용 금지 설정 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/mail/sendmail.cf\","
 
     declare -a details
     declare -a solutions
@@ -3373,7 +3382,7 @@ U_71(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.35 Apache 웹 서비스 정보 숨김\","
     echo "    \"Description\": \"웹페이지에서 오류 발생 시 출력되는 메시지 내용 점검\","
-    
+    echo "    \"Command\": \"cat /etc/httpd/conf/httpd.conf /etc/httpd/conf.d/*.conf\","
 
     declare -a details
     declare -a solutions
@@ -3422,7 +3431,7 @@ U_42() {
     echo "    \"Category\": \"4. 패치 관리\","
     echo "    \"Sub_Category\": \"4.1 최신 보안패치 및 벤더 권고사항 적용\","
     echo "    \"Description\": \"시스템에서 최신 패치가 적용되어 있는지 점검\","
-    
+    echo "    \"Command\": \"cat /etc/centos-release; rpm -qa | grep \\\"openssh\|bash\|glibc\|named\|openssl\\\"\","
 
     os_version_full=$(cat /etc/centos-release)
     os_version=$(echo "$os_version_full" | grep -oP 'release \K[0-9]+')
@@ -3455,6 +3464,7 @@ U_43() {
     echo "    \"Category\": \"5. 로그 관리\","
     echo "    \"Sub_Category\": \"5.1 로그의 정기적 검토 및 보고\","
     echo "    \"Description\": \"로그의 정기적 검토 및 보고 여부 점검\","
+    echo "    \"Command\": \"\","
     
     echo "    \"status\": \"[인터뷰]\","
     echo "    \"details\": ["
@@ -3471,7 +3481,7 @@ U_72() {
     echo "    \"Category\": \"5. 로그 관리\","
     echo "    \"Sub_Category\": \"5.2 정책에 따른 시스템 로깅 설정\","
     echo "    \"Description\": \"내부 정책에 따른 시스템 로깅 설정 적용 여부 점검\","
-    
+    echo "    \"Command\": \"cat /etc/rsyslog.conf; ls -al /var/log/messages* /var/log/secure* /var/log/maillog* /var/log/cron*\","
 
     rsyslog_conf="/etc/rsyslog.conf"
 
@@ -3599,8 +3609,3 @@ U_72
     echo "}" # 전체 JSON 종료
 } >> "$rf"
 
-# # 중앙 서버에서 디렉토리 생성 확인 및 생성
-# ssh jwkim@172.26.219.45 "mkdir -p /srv/scp_files" # p옵션: 존재하지 않는 중간의 디렉토리를 자동 생성
-
-# # 결과 파일 전송
-# scp "result.json" jwkim@172.26.219.45:/srv/scp_files
