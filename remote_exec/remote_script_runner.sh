@@ -5,12 +5,12 @@ REPO_URL="https://github.com/ehfhfhd/Sonicboom.git"
 SCRIPT_PATH="CentOS6/CentOS6.sh"
 SCRIPT_NAME="CentOS6.sh"
 RESULT_FILE="result.json"
-LOCAL_PATH="/home/jeyoo/tmp/Sonicboom"
+LOCAL_PATH="/home/jeyoo/tmp/Sonicboom" #취약점 진단 스크립트 위치
 
 # 로컬에 레포지토리 클론
 git clone "$REPO_URL" "$LOCAL_PATH"
 
-# 서버 목록
+# 원격 서버 목록
 SERVER_LIST=(
     "ubuntu@3.38.165.230"
     # "centos@xxx.xxx.xxx.xxx" # 다른 서버 계속...
