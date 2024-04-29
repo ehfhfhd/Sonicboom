@@ -556,7 +556,7 @@ U_49() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.10 불필요한 계정 제거\","
     echo "    \"Description\": \"시스템 계정 중 불필요한 계정(퇴직, 전직, 휴직 등의 이유로 사용하지 않는 계정 및 장기적으로 사용하지 않는 계정 등)이 존재하는지 점검\","
-    echo "    \"Command\": \"cat /etc/passwd | grep \\\"lp\|uucp\|nuucp\\\"; cat /etc/passwd | grep bash\","
+    echo "    \"Command\": \"cat /etc/passwd | grep \\\"lp\\\|uucp\\\|nuucp\\\"; cat /etc/passwd | grep bash\","
 
     declare -a details
     declare -a solutions
@@ -751,7 +751,7 @@ U_53() {
     echo "    \"Category\": \"1. 계정관리\","
     echo "    \"Sub_Category\": \"1.14 사용자 shell 점검\","
     echo "    \"Description\": \"로그인이 불필요한 계정(adm, sys, daemon 등)에 쉘 부여 여부 및 로그인 가능한 모든 계정의 bash_history 파일 존재 여부 점검\","
-    echo "    \"Command\": \"cat /etc/passwd | grep \\\"daemon\|bin:\|sys\|adm\|listen\|nobody\|nobody4\|noaccess\|diag\|operator\|gopher\|games\|lp\|uucp\|nuucp\|\\\"\","
+    echo "    \"Command\": \"cat /etc/passwd | grep \\\"daemon\\\|bin:\\\|sys\\\|adm\\\|listen\\\|nobody\\\|nobody4\\\|noaccess\\\|diag\\\|operator\\\|gopher\\\|games\\\|lp\\\|uucp\\\|nuucp\\\"\","
 
     declare -a details
     declare -a solutions
@@ -1439,7 +1439,7 @@ U_15() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.11 world writable 파일 점검\","
     echo "    \"Description\": \"불필요한 world writable 파일 존재 여부 점검\","
-    echo "    \"Command\": \"find / ! \( -path '/proc*' -o -path '/sys/fs*' -o -path '/usr/local*' -prune \) -perm -2 -type f -exec ls -al {} \;\","
+    echo "    \"Command\": \"find / ! \\\( -path '/proc*' -o -path '/sys/fs*' -o -path '/usr/local*' -prune \\\) -perm -2 -type f -exec ls -al {} \\\;\","
     
 	if [ `find / ! \( -path '/proc*' -o -path '/sys/fs*' -o -path '/usr/local*' -prune \) -perm -2 -type f 2>/dev/null | wc -l` -gt 0 ]; then
 		echo "    \"status\": \"[인터뷰]\","
@@ -1464,7 +1464,7 @@ U_16() {
     echo "    \"Category\": \"2. 파일 및 디렉토리 관리\","
     echo "    \"Sub_Category\": \"2.12 /dev에 존재하지 않는 device 파일 점검\","
     echo "    \"Description\": \"존재하지 않는 device 파일 존재 여부 점검\","
-    echo "    \"Command\": \"find /dev -type f -exec ls -al {} \;\","
+    echo "    \"Command\": \"find /dev -type f -exec ls -al {} \\\;\","
     
 	if [ `find /dev -type f 2>/dev/null | wc -l` -gt 0 ]; then
 		echo "    \"status\": \"[인터뷰]\","
@@ -2246,7 +2246,7 @@ U_28() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.10 NIS, NIS+ 점검\","
     echo "    \"Description\": \"불필요한 NIS 서비스 사용여부 점검\","
-    echo "    \"Command\": \"ps -ef | grep \\\"ypserv\|ypbind\|ypxfrd\|rpc.yppasswdd\|rpc.ypupdated\\\"\","
+    echo "    \"Command\": \"ps -ef | grep \\\"ypserv\\\|ypbind\\\|ypxfrd\\\|rpc.yppasswdd\\\|rpc.ypupdated\\\"\","
 
     declare -a details
     declare -a solutions
@@ -2282,7 +2282,7 @@ U_29() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.11 tftp, talk 서비스 비활성화\","
     echo "    \"Description\": \"tftp, talk 등의 서비스를 사용하지 않거나 취약점이 발표된 서비스의 활성화 여부 점검\","
-    echo "    \"Command\": \"ps -ef | grep \\\"tftp\|talk\\\"\","
+    echo "    \"Command\": \"ps -ef | grep \\\"tftp\\\|talk\\\"\","
 
     declare -a details
     declare -a solutions
@@ -2407,7 +2407,7 @@ U_32() {
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.14 일반사용자의 Sendmail 실행 방지\","
     echo "    \"Description\": \"SMTP 서비스 사용 시 일반사용자의 q 옵션 제한 여부 점검\","
-    echo "    \"Command\": \"find / -name 'sendmail.cf' -type f -exec cat {} \;\","
+    echo "    \"Command\": \"find / -name 'sendmail.cf' -type f -exec cat {} \\\;\","
 
     declare -a details
     declare -a solutions
@@ -3230,7 +3230,7 @@ U_68(){
     echo "    \"Category\": \"3. 서비스 관리\","
     echo "    \"Sub_Category\": \"3.32 로그온 시 경고 메시지 제공\","
     echo "    \"Description\": \"서버 및 서비스에 로그온 시 불필요한 정보 차단 설정 및 불법적인 사용에 대한 경고 메시지 출력 여부 점검\","
-    echo "    \"Command\": \"ps -ef | grep \\\"telnet\|ftp\|sendmail\|named\\\"\","
+    echo "    \"Command\": \"ps -ef | grep \\\"telnet\\\|ftp\\\|sendmail\\\|named\\\"\","
 
     declare -a details
     declare -a solutions
@@ -3431,7 +3431,7 @@ U_42() {
     echo "    \"Category\": \"4. 패치 관리\","
     echo "    \"Sub_Category\": \"4.1 최신 보안패치 및 벤더 권고사항 적용\","
     echo "    \"Description\": \"시스템에서 최신 패치가 적용되어 있는지 점검\","
-    echo "    \"Command\": \"cat /etc/centos-release; rpm -qa | grep \\\"openssh\|bash\|glibc\|named\|openssl\\\"\","
+    echo "    \"Command\": \"cat /etc/centos-release; rpm -qa | grep \\\"openssh\\\|bash\\\|glibc\\\|named\\\|openssl\\\"\","
 
     os_version_full=$(cat /etc/centos-release)
     os_version=$(echo "$os_version_full" | grep -oP 'release \K[0-9]+')
@@ -3440,7 +3440,7 @@ U_42() {
     declare -a solutions
 
     if [[ "$os_version" -ge 7 ]]; then
-        rpm=$(rpm -qa | grep "openssh\|bash\|glibc\|named\|openssl")
+        rpm=$(rpm -qa | grep "openssh\\\|bash\\\|glibc\\\|named\\\|openssl")
         rpm=$(echo "$rpm" | tr '\n' ' ')
         echo "    \"status\": \"[인터뷰]\","
         echo "    \"details\": ["
