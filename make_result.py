@@ -7,7 +7,7 @@ from openpyxl import load_workbook
 from openpyxl.styles import Alignment, PatternFill, Font, Border, Side
 
 # 현재 디렉토리에서 "result"로 시작하는 모든 JSON 파일의 경로 찾기
-json_files = glob.glob('result*.json')
+json_files = glob.glob('~/srv/SNB_서버진단/*_result.json')
 
 data = {} # 진단 데이터(json)
 df = {}   # 진단 데이터프레임
@@ -183,6 +183,7 @@ for n in range(0,num):
         for status_cell in status_row:
             if status_cell.value == "[취약]":
                 status_cell.font = Font(color="FF0000") # 빨간 글씨
+                status_cell.fill = PatternFill(start_color="F2DCDB", end_color="F2DCDB", fill_type="solid") # 분홍색 바탕
             elif status_cell.value == "[인터뷰]":
                 status_cell.fill = PatternFill(start_color="FFFF00", end_color="FFFF00", fill_type="solid") # 노란색 바탕
     # 진단 결과 통계
@@ -220,7 +221,7 @@ for row_3 in range(4,76):
 # 표지 수정
 sheet_0 = workbook['표지']
 sheet_0.cell(18,1,current_date)
-sheet_0.cell(18,1).number_format = 'yyyy"年" mm"月" dd"日"' # 표시 형식 변경
+sheet_0.cell(18,1).number_format = 'yyyy"." mm"." dd"."' # 표시 형식 변경
 
 
 # 변경 사항 저장
