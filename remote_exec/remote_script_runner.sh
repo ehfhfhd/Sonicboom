@@ -45,5 +45,11 @@ for SERVER in "${SERVER_LIST[@]}"; do
     scp -o StrictHostKeyChecking=no "$SERVER:/home/$USER/$RESULT_FILE" "/srv/SNB_서버진단/$RESULT_FILENAME"
 
 done
-# 엑셀 파일 추출
-# python3 /home/ubuntu/make_xlsx/make_result.py
+
+#make_result.py 파일이 있는 디렉토리로 이동
+if cd /home/ubuntu/make_xlsx; then
+	python3 make_result.py #make_result.py 실행
+else
+	echo "Failed to change directory to /home/ubuntu/make_xlsx"
+	exit 1
+fi
