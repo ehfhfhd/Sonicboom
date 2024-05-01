@@ -1,3 +1,7 @@
+/* CSS 파일 맨 위에 이 구문 추가 */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+
+
 // color variants
 @import 'themes-vars.module.scss';
 

@@ -2,7 +2,6 @@
 import { useTheme, styled } from '@mui/material/styles';
 import {
   Avatar,
-  Button,
   Card,
   CardContent,
   Chip,
@@ -18,7 +17,7 @@ import {
 } from '@mui/material';
 
 // assets
-import { IconBrandTelegram, IconBuildingStore, IconMailbox, IconPhoto } from '@tabler/icons-react';
+import { IconFile } from '@tabler/icons-react';
 import User1 from 'assets/images/users/user-round.svg';
 
 // styles
@@ -86,9 +85,9 @@ const NotificationList = () => {
       <ListItemWrapper>
         <ListItem alignItems="center">
           <ListItemAvatar>
-            <Avatar alt="John Doe" src={User1} />
+            <Avatar alt="kisia" src={User1} />
           </ListItemAvatar>
-          <ListItemText primary="John Doe" />
+          <ListItemText primary="kisia" />
           <ListItemSecondaryAction>
             <Grid container justifyContent="flex-end">
               <Grid item xs={12}>
@@ -115,7 +114,7 @@ const NotificationList = () => {
           </Grid>
         </Grid>
       </ListItemWrapper>
-      <Divider />
+      {/* <Divider />
       <ListItemWrapper>
         <ListItem alignItems="center">
           <ListItemAvatar>
@@ -153,8 +152,8 @@ const NotificationList = () => {
             </Grid>
           </Grid>
         </Grid>
-      </ListItemWrapper>
-      <Divider />
+      </ListItemWrapper> */}
+      {/* <Divider />
       <ListItemWrapper>
         <ListItem alignItems="center">
           <ListItemAvatar>
@@ -194,14 +193,14 @@ const NotificationList = () => {
             </Grid>
           </Grid>
         </Grid>
-      </ListItemWrapper>
+      </ListItemWrapper> */}
       <Divider />
       <ListItemWrapper>
         <ListItem alignItems="center">
           <ListItemAvatar>
-            <Avatar alt="John Doe" src={User1} />
+            <Avatar alt="kisia" src={User1} />
           </ListItemAvatar>
-          <ListItemText primary={<Typography variant="subtitle1">John Doe</Typography>} />
+          <ListItemText primary={<Typography variant="subtitle1">kisia</Typography>} />
           <ListItemSecondaryAction>
             <Grid container justifyContent="flex-end">
               <Grid item xs={12}>
@@ -233,8 +232,8 @@ const NotificationList = () => {
                     <Grid container direction="column">
                       <Grid item xs={12}>
                         <Stack direction="row" spacing={2}>
-                          <IconPhoto stroke={1.5} size="1.3rem" />
-                          <Typography variant="subtitle1">demo.jpg</Typography>
+                          <IconFile stroke={1.5} size="1.3rem" />
+                          <Typography variant="subtitle1">result.json</Typography>
                         </Stack>
                       </Grid>
                     </Grid>
@@ -249,9 +248,9 @@ const NotificationList = () => {
       <ListItemWrapper>
         <ListItem alignItems="center">
           <ListItemAvatar>
-            <Avatar alt="John Doe" src={User1} />
+            <Avatar alt="kisia" src={User1} />
           </ListItemAvatar>
-          <ListItemText primary={<Typography variant="subtitle1">John Doe</Typography>} />
+          <ListItemText primary={<Typography variant="subtitle1">kisia</Typography>} />
           <ListItemSecondaryAction>
             <Grid container justifyContent="flex-end">
               <Grid item xs={12}>

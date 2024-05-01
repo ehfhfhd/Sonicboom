@@ -6,12 +6,16 @@ const DiagnosisBarChart = ({ data }) => (
             data={data}
             keys={['양호', '취약', '인터뷰', 'N/A']}
             indexBy="status"
-            margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+            margin={{ top: 10, right: 130, bottom: 70, left: 60 }}
             padding={0.3}
             valueScale={{ type: 'linear' }}
             indexScale={{ type: 'band', round: true }}
             colors={['#C3B6F2', '#8477D9', '#9389D9', '#CEDEF2']} // 사용자 지정 색상 배열로 설정
-            borderColor={{ from: 'color', modifiers: [['darker', 1.6]] }}
+            borderWidth={1}
+            borderColor={{
+                from: 'color',
+                modifiers: [['darker', 0.3]]
+            }}
             axisTop={null}
             axisRight={null}
             axisBottom={{

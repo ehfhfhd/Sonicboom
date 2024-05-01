@@ -1,22 +1,23 @@
 // assets
-import { IconBrandChrome, IconHelp } from '@tabler/icons-react';
+import { IconBrandGithub, IconHelp } from '@tabler/icons-react';
 
 // constant
-const icons = { IconBrandChrome, IconHelp };
+const icons = { IconBrandGithub, IconHelp };
 
 // ==============================|| SAMPLE PAGE & DOCUMENTATION MENU ITEMS ||============================== //
 
 const other = {
-  id: 'sample-docs-roadmap',
+  id: 'github-docs-roadmap',
   type: 'group',
   children: [
     {
-      id: 'sample-page',
-      title: 'Sample Page',
+      id: 'github-page',
+      title: 'Github Page',
       type: 'item',
-      url: '/sample-page',
-      icon: icons.IconBrandChrome,
-      breadcrumbs: false
+      url: 'https://github.com/ehfhfhd/Sonicboom.git',
+      icon: icons.IconBrandGithub,
+      breadcrumbs: false,
+      target: '_blank'
     },
     {
       id: 'documentation',
