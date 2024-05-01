@@ -175,6 +175,7 @@ for n in range(0,num):
     # 진단 결과 칼럼
     sheet_4.cell(8,n+5, '진단 결과')
     sheet_4.cell(8,n+5).font = Font(bold=True)
+    sheet_4.cell(8,n+5).fill = PatternFill(start_color="D9D9D9", end_color="D9D9D9", fill_type="solid") # 회색 바탕
     # 진단 결과 작성
     for idx in range(0,72):
         sheet_4.cell(idx+9,n+5, df[n]['진단 결과'][idx])
