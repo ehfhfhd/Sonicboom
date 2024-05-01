@@ -9,20 +9,24 @@ const DiagnosisBarChartCard = ({ data }) => {
   const totalInterview = data.find(d => d.status === "인터뷰").인터뷰;
   const totalNA = data.find(d => d.status === "N/A")['N/A'];
 
+  const cardStyle = {
+    height: '450px',
+  };
+
   return (
-    <Card>
+    <Card style={cardStyle}>
       <CardContent>
         <Grid container>
           <Grid item xs={9}>
-            <Typography variant="h6" color="textPrimary" gutterBottom>
-              서버 진단 결과
+            <Typography variant="h5" color="textPrimary" gutterBottom>
+              진단 결과
             </Typography>
             <DiagnosisBarChart data={data} />
           </Grid>
           <Grid item xs={3} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <Typography variant="body2">양호: {totalOk}개</Typography>
-            <Typography variant="body2">취약: {totalVulnerable}개</Typography>
-            <Typography variant="body2">인터뷰 필요: {totalInterview}개</Typography>
+            <Typography variant="body2" style={{ marginBottom: '10px' }}>양호: {totalOk}개</Typography>
+            <Typography variant="body2" style={{ marginBottom: '10px' }}>취약: {totalVulnerable}개</Typography>
+            <Typography variant="body2" style={{ marginBottom: '10px' }}>인터뷰 필요: {totalInterview}개</Typography>
             <Typography variant="body2">N/A: {totalNA}개</Typography>
           </Grid>
         </Grid>

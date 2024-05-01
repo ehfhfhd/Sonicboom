@@ -9,8 +9,8 @@ export const useDiagnostics = () => useContext(DiagnosticsContext);
 
 // Provider component to wrap the app in App.js
 export const DiagnosticsProvider = ({ children }) => {
-  const [diagnosticsData, setDiagnosticsData] = useState(null);
-
+  const [diagnosticsData, setDiagnosticsData] = useState(0);
+  console.log('Diagnostics Data from Hook:', diagnosticsData);
   useEffect(() => {
     // Fetch the diagnostics data from the API
     axios.get('http://localhost:5001/api/diagnostics')

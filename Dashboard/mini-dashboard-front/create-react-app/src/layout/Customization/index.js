@@ -64,8 +64,11 @@ const Customization = () => {
       initialFont = 'Poppins';
       break;
     case `'Roboto', sans-serif`:
-    default:
       initialFont = 'Roboto';
+      break;
+    case `'Pretendard', sans-serif`:  // 새로운 폰트 케이스 추가
+    default:
+      initialFont = `'Pretendard', sans-serif`; // 기본 폰트로 설정
       break;
   }
 
@@ -80,8 +83,12 @@ const Customization = () => {
       case 'Poppins':
         newFont = `'Poppins', sans-serif`;
         break;
+      case `'Pretendard', sans-serif`:  // 새로운 폰트 케이스 추가
+        default:
+          initialFont = `'Pretendard', sans-serif`; // 기본 폰트로 설정
+          break;
       case 'Roboto':
-      default:
+      // default:
         newFont = `'Roboto', sans-serif`;
         break;
     }
@@ -167,6 +174,13 @@ const Customization = () => {
                         '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] }
                       }}
                     />
+                    <FormControlLabel
+                      value="Pretendard"
+                      control={<Radio />}
+                      label="Pretendard"
+                      sx={{ '& .MuiSvgIcon-root': { fontSize: 28 }, '& .MuiFormControlLabel-label': { color: theme.palette.grey[900] } }}
+                    />
+
                   </RadioGroup>
                 </FormControl>
               </SubCard>
