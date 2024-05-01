@@ -7,7 +7,7 @@ from openpyxl import load_workbook
 from openpyxl.styles import Alignment, PatternFill, Font, Border, Side
 
 # 현재 디렉토리에서 "result"로 시작하는 모든 JSON 파일의 경로 찾기
-json_files = glob.glob('~/srv/SNB_서버진단/*_result.json')
+json_files = glob.glob('/srv/SNB_서버진단/*_result.json')
 
 data = {} # 진단 데이터(json)
 df = {}   # 진단 데이터프레임
