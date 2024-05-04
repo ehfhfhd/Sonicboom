@@ -1,39 +1,25 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, jsonify
 from flask_cors import CORS
-import json
-import os
+import requests
 
 app = Flask(__name__)
 CORS(app, resources={r'*': {'origins': '*'}})
 app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024  # 파일 크기: 1MB
 
-@app.route('/api/upload', methods=['POST'])
-def upload_file():
-    uploaded_file = request.files.get('file')
-    if uploaded_file is None or uploaded_file.filename == '':
-        return render_template('error_page.html')
-    if uploaded_file.mimetype != 'application/zip':
-        return render_template('error_page.html')
-    # 파일 저장 로직
-    return jsonify({"message": "File uploaded successfully"})
-
-@app.route('/')
-def index():
-    return render_template('upload.html')
-
 @app.route('/parse')
 def parse_files():
-    data = parse_all_json_files(r'\\wsl$\Ubuntu\srv\scp_files')
-    return jsonify(data)
-
-def parse_all_json_files(directory):
-    results = []
-    for filename in os.listdir(directory):
-        if filename.endswith('.json'):
-            filepath = os.path.join(directory, filename)
-            with open(filepath, 'r', encoding='utf-8') as json_file:
-                results.append(json.load(json_file))
-    return results
+    # EC2 인스턴스의 API URL 설정
+    api_url = 'http://ec2-54-180-201-78.ap-northeast-2.compute.amazonaws.com:5001/api/diagnostics'
+    
+    # 원격 API로부터 데이터 요청
+    response = requests.get(api_url)
+    if response.status_code == 200:
+        # API로부터 정상적으로 데이터를 받았을 경우, JSON 데이터를 파싱하여 반환
+        data = response.json()  # JSON 응답을 파이썬 딕셔너리로 변환
+        return jsonify(data)
+    else:
+        # API 요청에 실패했을 때 오류 메시지를 반환
+        return jsonify({'error': 'Failed to fetch data from remote API'}), 500
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
