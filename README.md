@@ -1,6 +1,3 @@
-# Sonicboom
-인프라 진단(CCE) 자동화 제작
-
 ## 프로젝트 소개
 CCE Linux취약점 항목 분석 및 자동화 진단 도구 제작
 - 주요통신기반시설 가이드를 기반으로 취약점 진단 스크립트 작성
@@ -16,7 +13,11 @@ CCE Linux취약점 항목 분석 및 자동화 진단 도구 제작
 </div>
 
 ## 개발 환경
-- 배지 추가
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=Python&logoColor=white"/> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=flat&logo=javascript&logoColor=black"/> <img src="https://img.shields.io/badge/bash-4EAA25?style=flat&logo=gnubash&logoColor=black&title_color=black"/> <br>
+<img src="https://img.shields.io/badge/jenkins-D24939?style=flat&logo=jenkins&logoColor=white"/> <img src="https://img.shields.io/badge/Flask-000000?style=flat&logo=Flask&logoColor=white"/> <img src="https://img.shields.io/badge/node.js-5FA04E?style=flat&logo=nodedotjs&logoColor=white"/> <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=black"/> <img src="https://img.shields.io/badge/Linux-FCC624?style=flat&logo=Linux&logoColor=black"/> <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white"/>
+
+
+
 ## 🏗️시스템 구성
 <img src="https://github.com/ehfhfhd/Sonicboom/assets/63927229/616bc47e-88e6-4a5b-a80f-40b28cb552e5" width="400"/>
 <img src="https://github.com/ehfhfhd/Sonicboom/assets/63927229/e8d0bcc1-756a-439e-8cc7-44d27178d2f7" width="350"/>
