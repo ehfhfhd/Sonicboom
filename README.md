@@ -18,11 +18,11 @@ CCE Linux취약점 항목 분석 및 자동화 진단 도구 제작
 ## 개발 환경
 - 배지 추가
 ## 🏗️시스템 구성
-<img src="https://github.com/ehfhfhd/Sonicboom/assets/63927229/616bc47e-88e6-4a5b-a80f-40b28cb552e5" width="450"/>
-<img src="https://github.com/ehfhfhd/Sonicboom/assets/63927229/e8d0bcc1-756a-439e-8cc7-44d27178d2f7" width="400"/>
+<img src="https://github.com/ehfhfhd/Sonicboom/assets/63927229/616bc47e-88e6-4a5b-a80f-40b28cb552e5" width="400"/>
+<img src="https://github.com/ehfhfhd/Sonicboom/assets/63927229/e8d0bcc1-756a-439e-8cc7-44d27178d2f7" width="350"/>
 
 
-## 📢사용방법
+## 📢EXCEL파일 추출 방법
 1. 필요 파이썬 툴을 다음 명령어로 설치한다.<br>
     ```
     pip install pandas
@@ -31,9 +31,10 @@ CCE Linux취약점 항목 분석 및 자동화 진단 도구 제작
     ```
 2. remote_exec/servers_list.txt 파일에 진단하고자 하는 서버를 저장한다.
    [username]@[ip]
-3. remote_exec/remote_script_runner.sh파일을 중앙서버에 저장하여 실행한다.<br>
+3. 중앙서버의 키를 취약점 진단을 수행할 원격서버에 심어준다.
+4. remote_exec/remote_script_runner.sh파일을 중앙서버에 저장하여 실행한다.<br>
    ```bash remote_script_runner.sh```
-4. make_xlsx 디렉토리 내부에 생성된 취약점 진단 결과 excel파일을 확인할 수 있다.
+5. make_xlsx 디렉토리 내부에 생성된 취약점 진단 결과 excel파일을 확인할 수 있다.
    
 ## ⭐결과물
 ### 1. Excel
